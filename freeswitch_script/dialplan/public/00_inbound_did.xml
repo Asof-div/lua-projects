@@ -1,0 +1,30 @@
+<include>
+  
+  <!-- 
+  <extension name="lanre">
+    <condition field="destination_number" expression="^(07002210700)$">
+      <action application="set" data="inherit_codec=true"/>
+      <action application="set" data="caller=${caller_id_number}"/>
+      <action application="set" data="callee=${1}"/>
+      <action application="set" data="ani=${1}"/>
+      <action application="set" data="caller_id_number=${1}"/>
+      <action application="set" data="sip_h_X-Contact=${1}"/>
+      <action application="set" data="sip_h_X-A-Number=${1}"/>
+      <action application="set" data="sip_h_X-Primary-DID=${1}"/>
+      <action application="answer" data="" />
+      <action application="bridge" data="sofia/gateway/9mobile_gateway/09033943509"/>
+    </condition>
+  </extension> -->
+
+  <extension name="did_call_with_out_contry_code">
+    <condition field="destination_number" expression="^(\d{11})$">
+      <action application="set" data="inherit_codec=true"/>
+      <action application="set" data="caller=${caller_id_number}"/>
+      <action application="set" data="callee=${1}"/>
+      <action application="set" data="session_in_hangup_hook=true"/> 
+      <action application="set" data="api_hangup_hook=lua hangup_hook.lua ${uuid}"/> 
+      <action application="lua" data="DID.lua ${caller} ${1}"/> 
+    </condition>
+  </extension>
+
+</include>

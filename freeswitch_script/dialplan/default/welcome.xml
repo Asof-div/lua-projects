@@ -1,0 +1,55 @@
+<include>
+  <extension name="welcome_ivr">
+    <condition field="destination_number" expression="^2910$">
+      <action application="lua" data="welcome.lua"/> 
+    </condition>
+  </extension>
+
+  <extension name="local_voice_code_recording">
+    <condition field="destination_number" expression="^000$">
+      <action application="set" data="caller=${username}"/>
+      <action application="set" data="callee=${1}"/>
+      <action application="set" data="tenantcode=${tenant_id}"/>
+      <action application="lua" data="MediaRecord.lua ${caller} ${tenantcode}"/> 
+
+    </condition>
+  </extension>
+
+
+  <extension name="local_calls">
+    <condition field="destination_number" expression="^(\d{3,5})$">
+      <action application="set" data="caller=${username}"/>
+      <action application="set" data="callee=${1}"/>
+      <action application="set" data="tenantcode=${tenant_code}"/>
+      <action application="set" data="tenant_id=${tenant_id}"/>
+      <!--<action application="answer" data="" /> -->
+      <action application="sleep" data="1" />
+      <action application="set" data="tts_engine=flite" />
+      <action application="set" data="tts_voice=kal" />
+      <action application="set" data="session_in_hangup_hook=true"/> 
+      <action application="set" data="api_hangup_hook=lua hangup_hook.lua ${uuid}"/> 
+      <action application="lua" data="local_extension.lua ${caller} ${callee} ${tenantcode} ${tenant_id}"/> 
+      
+    </condition>
+  </extension>
+
+
+  <extension name="mobile_operators_calls">
+    <condition field="destination_number" expression="(\d{11})$">
+      <action application="set" data="caller=${ani}"/>
+      <action application="set" data="callee=${1}"/>
+      <action application="set" data="tenantcode=${tenant_code}"/>
+      <action application="set" data="tenant_id=${tenant_id}"/>
+      <action application="lua" data="local_mobile.lua ${caller} ${callee} ${tenantcode} ${tenant_id}"/> 
+    </condition>
+  </extension>
+
+
+  <extension name="voicemail">
+    <condition field="destination_number" expression="^3910$">
+      <action application="voicemail" data="default $${domain} VM_0000244111"/> 
+    </condition>
+  </extension>
+
+
+</include>

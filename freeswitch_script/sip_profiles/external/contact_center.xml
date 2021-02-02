@@ -1,0 +1,15 @@
+<include>
+    <gateway name="cc_gateway">
+        <!-- <param name="username" value="CPFreswitch"/> -->
+        <!-- <param name="password" value="Dsu3jcHUd2khfAUQA"/> -->
+        <param name="extension" value="trunk"/>
+        <param name="register" value="false"/>
+        <param name="proxy" value="192.168.234.50:5080"/>
+        <param name="from_domain" value="192.168.234.41"/>
+        <!-- <param name="outbound-proxy" value="10.24.4.151:5080"/> -->
+        <variables>
+            <variable name="verbose_sdp" value="true" />
+            <variable name="absolute_codec_string" value="$${global_codec_prefs}" />
+        </variables>
+    </gateway>
+</include>
